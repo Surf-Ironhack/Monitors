@@ -39,7 +39,7 @@ public class MonitorsService {
         Monitors existingMonitor = monitorsRepository.findById(id).orElse(null);
 
         if(existingMonitor == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Monitor no encontrado");
         }
 
         if(monitors.getSpecialtyLevel() != null){
@@ -47,6 +47,11 @@ public class MonitorsService {
             monitorsRepository.save(existingMonitor);
         }
         return monitorsRepository.save(existingMonitor);
+    }
+
+    public Monitors getFindMonitorById(Long id) {
+        return monitorsRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Monitor no encontrado"));
     }
 
 }
