@@ -17,8 +17,8 @@ public class MonitorsService {
     @Autowired
     private MonitorsRepository monitorsRepository;
 
-    public Monitors postCreateMonitor(Monitors monitors){
-        return monitorsRepository.save(monitors);
+    public Monitors postCreateMonitor(Monitors monitor){
+        return monitorsRepository.save(monitor);
     }
 
     public ResponseEntity<?> getMonitorsById(Long id){
@@ -35,7 +35,7 @@ public class MonitorsService {
         monitorsRepository.deleteById(id);
     }
 
-    public Monitors changeSpecialtyLevel(Long id, Monitors monitors){
+    public Monitors patchChangeSpecialtyLevel(Long id, Monitors monitors){
         Monitors existingMonitor = monitorsRepository.findById(id).orElse(null);
 
         if(existingMonitor == null){

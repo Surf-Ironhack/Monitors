@@ -1,5 +1,6 @@
 package com.Surf.monitors_surf.controllers;
 
+import com.Surf.monitors_surf.models.Monitors;
 import com.Surf.monitors_surf.repository.MonitorsRepository;
 import com.Surf.monitors_surf.service.MonitorsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,18 @@ public class MonitorsController {
     private ResponseEntity<Void> deleteMonitors(@PathVariable Long id){
         monitorsService.deleteMonitorsById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/register/monitors")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Monitors createMonitor(@RequestBody Monitors monitor) {
+        return monitorsService.postCreateMonitor(monitor);
+    }
+
+    @PatchMapping
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Monitors>puthChangeSpecialtyLevel(@PathVariable Long id,@RequestBody Monitors monitors){
+        Monitors newLevelMonitor = monitorsService.patchChangeSpecialtyLevel(id, monitors);
+        return ResponseEntity.ok(newLevelMonitor);
     }
 }
