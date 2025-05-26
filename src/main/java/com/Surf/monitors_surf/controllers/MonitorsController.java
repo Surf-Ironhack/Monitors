@@ -32,13 +32,13 @@ public class MonitorsController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/register/monitors")
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public Monitors createMonitor(@RequestBody Monitors monitor) {
         return monitorsService.postCreateMonitor(monitor);
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Monitors>puthChangeSpecialtyLevel(@PathVariable Long id,@RequestBody Monitors monitors){
         Monitors newLevelMonitor = monitorsService.patchChangeSpecialtyLevel(id, monitors);
