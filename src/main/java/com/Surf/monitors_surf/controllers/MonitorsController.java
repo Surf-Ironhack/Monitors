@@ -25,7 +25,7 @@ public class MonitorsController {
         return monitorsService.getMonitorsById(id);
     }
 
-    @DeleteMapping("/delete/monitors/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.PROCESSING)
     private ResponseEntity<Void> deleteMonitors(@PathVariable Long id){
         monitorsService.deleteMonitorsById(id);
