@@ -18,5 +18,6 @@ public class Monitors {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nameStaff;
+    private String specialtyLevel;
     private Long classesId;
 }
