@@ -48,10 +48,4 @@ public class MonitorsService {
         }
         return monitorsRepository.save(existingMonitor);
     }
-
-    public Monitors getFindMonitorById(Long id) {
-        return monitorsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Monitor no encontrado"));
-    }
-
 }
