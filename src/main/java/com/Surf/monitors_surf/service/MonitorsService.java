@@ -1,5 +1,7 @@
 package com.Surf.monitors_surf.service;
 
+import com.Surf.monitors_surf.dto.ClassesDTO;
+import com.Surf.monitors_surf.feignMonitors.ClassesFeignMonitors;
 import com.Surf.monitors_surf.models.Monitors;
 import com.Surf.monitors_surf.repository.MonitorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class MonitorsService {
 
     @Autowired
     private MonitorsRepository monitorsRepository;
+
+    @Autowired
+    private ClassesFeignMonitors classesFeignMonitors;
 
     public Monitors postCreateMonitor(Monitors monitor){
         return monitorsRepository.save(monitor);
