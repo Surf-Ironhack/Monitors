@@ -1,6 +1,8 @@
 package com.Surf.monitors_surf.service;
 
 import com.Surf.monitors_surf.dto.ClassesDTO;
+import com.Surf.monitors_surf.dto.ResponseDTO;
+import com.Surf.monitors_surf.exceptions.MonitorsNotFound;
 import com.Surf.monitors_surf.feignMonitors.ClassesFeignMonitors;
 import com.Surf.monitors_surf.models.Monitors;
 import com.Surf.monitors_surf.repository.MonitorsRepository;
@@ -52,5 +54,26 @@ public class MonitorsService {
             monitorsRepository.save(existingMonitor);
         }
         return monitorsRepository.save(existingMonitor);
+    }
+
+    public ResponseEntity<?> getMonitorsAndClassById(Long id){
+        Optional<Monitors> optionalMonitors = monitorsRepository.findById(id);
+        System.out.println("ESTO ES UN OPTIONAL: "+optionalMonitors);
+        if(optionalMonitors.isPresent()){
+            System.out.println("ESTO ES DESPUES DEL GET() "+ optionalMonitors.get());
+            // Sacamos el monitor del optional
+            Monitors monitorFueraDelOptional = optionalMonitors.get();
+
+            // sacamos el ID de la classe
+            Long idDelaClase = monitorFueraDelOptional.getClassesId();
+
+            ClassesDTO classesDTO = classesFeignMonitors.getClassesById(idDelaClase);
+
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(optionalMonitors.get(), classesDTO));
+
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Monitor no encontrado"));
+
     }
 }

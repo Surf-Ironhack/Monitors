@@ -1,5 +1,8 @@
 package com.Surf.monitors_surf.controllers;
 
+import com.Surf.monitors_surf.dto.ClassesDTO;
+import com.Surf.monitors_surf.exceptions.MonitorsNotFound;
+import com.Surf.monitors_surf.feignMonitors.ClassesFeignMonitors;
 import com.Surf.monitors_surf.models.Monitors;
 import com.Surf.monitors_surf.repository.MonitorsRepository;
 import com.Surf.monitors_surf.service.MonitorsService;
@@ -17,6 +20,9 @@ public class MonitorsController {
     private MonitorsRepository monitorsRepository;
 
     @Autowired
+    private ClassesFeignMonitors classesFeignMonitors;
+
+    @Autowired
     MonitorsService monitorsService;
 
     @GetMapping("/{id}")
@@ -24,6 +30,12 @@ public class MonitorsController {
     public ResponseEntity<?> getFindMonitorById(@PathVariable Long id) {
         return monitorsService.getMonitorsById(id);
     }
+
+    @GetMapping("/classes/{id}")
+    public ResponseEntity<?> getMonitorsAndClassById(@PathVariable Long id){
+            return ResponseEntity.ok(monitorsService.getMonitorsAndClassById(id));
+    }
+
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.PROCESSING)
