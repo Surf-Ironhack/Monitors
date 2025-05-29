@@ -58,22 +58,17 @@ public class MonitorsService {
 
     public ResponseEntity<?> getMonitorsAndClassById(Long id){
         Optional<Monitors> optionalMonitors = monitorsRepository.findById(id);
-        System.out.println("ESTO ES UN OPTIONAL: "+optionalMonitors);
-        if(optionalMonitors.isPresent()){
-            System.out.println("ESTO ES DESPUES DEL GET() "+ optionalMonitors.get());
-            // Sacamos el monitor del optional
-            Monitors monitorFueraDelOptional = optionalMonitors.get();
 
-            // sacamos el ID de la classe
+        if(optionalMonitors.isPresent()){
+            Monitors monitorFueraDelOptional = optionalMonitors.get();
             Long idDelaClase = monitorFueraDelOptional.getClassesId();
 
             ClassesDTO classesDTO = classesFeignMonitors.getClassesById(idDelaClase);
 
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(optionalMonitors.get(), classesDTO));
+            ResponseDTO responseDTO = new ResponseDTO(monitorFueraDelOptional, classesDTO);
 
+            return ResponseEntity.ok(responseDTO);
         }
-
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Monitor no encontrado"));
-
     }
 }

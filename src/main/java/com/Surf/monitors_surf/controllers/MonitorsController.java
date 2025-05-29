@@ -33,7 +33,7 @@ public class MonitorsController {
 
     @GetMapping("/classes/{id}")
     public ResponseEntity<?> getMonitorsAndClassById(@PathVariable Long id){
-            return ResponseEntity.ok(monitorsService.getMonitorsAndClassById(id));
+            return monitorsService.getMonitorsAndClassById(id);
     }
 
 
