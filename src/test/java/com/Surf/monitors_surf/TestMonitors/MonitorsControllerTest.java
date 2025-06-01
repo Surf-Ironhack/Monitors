@@ -41,9 +41,9 @@ public class MonitorsControllerTest {
     @Test
     void postCreatedMonitors() throws Exception {
         Monitors monitors = new Monitors();
-        monitors.setNameStaff("Ana");
+        monitors.setNameStaff("Brandor");
         monitors.setSpecialtyLevel("Intermedio");
-        monitors.setClassesId(1L);
+        monitors.setClassesId(4L);
 
         String body = objectMapper.writeValueAsString(monitors);
         MvcResult mvcResult = mockMvc.perform(post("/monitors/register")
@@ -96,7 +96,5 @@ public class MonitorsControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-
-
 }
 

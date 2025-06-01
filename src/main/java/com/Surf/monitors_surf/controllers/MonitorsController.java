@@ -6,6 +6,7 @@ import com.Surf.monitors_surf.feignMonitors.ClassesFeignMonitors;
 import com.Surf.monitors_surf.models.Monitors;
 import com.Surf.monitors_surf.repository.MonitorsRepository;
 import com.Surf.monitors_surf.service.MonitorsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,13 +47,13 @@ public class MonitorsController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public Monitors createMonitor(@RequestBody Monitors monitor) {
+    public Monitors createMonitor(@RequestBody @Valid Monitors monitor) {
         return monitorsService.postCreateMonitor(monitor);
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Monitors>puthChangeSpecialtyLevel(@PathVariable Long id,@RequestBody Monitors monitors){
+    public ResponseEntity<Monitors>puthChangeSpecialtyLevel(@PathVariable Long id,@RequestBody @Valid Monitors monitors){
         Monitors newLevelMonitor = monitorsService.patchChangeSpecialtyLevel(id, monitors);
         return ResponseEntity.ok(newLevelMonitor);
     }
